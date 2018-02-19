@@ -7,7 +7,7 @@ from fancyimpute import BiScaler, KNN, NuclearNormMinimization, SoftImpute, Iter
 #load perfil data
 perfil_lines = genfromtxt('../data/Perfil_Lines.csv', delimiter=',')
 perfil_angles = genfromtxt('../data/Perfil_Angles.csv', delimiter=',')
-perfil_class = genfromtxt('../data/Perfil_class.csv', delimiter=',',skip_header=1)
+perfil_class = genfromtxt('../data/Perfil_class.csv', delimiter=',', skip_header=1)
 
 perfil_all = np.concatenate((perfil_lines[:,1:], perfil_angles[:,1:]), axis=1)
 

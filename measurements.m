@@ -1,6 +1,7 @@
 %% Load File
 clear all;
 n = 229; %Number of examples
+n = 1;
 %M = dlmread('/home/ajaque/Documents/PhD/mandibular_morphology/data/BDDCoordenadasPerfil29_05_2012.csv', ',',1,1);
 M = dlmread('/home/ajaque/Documents/PhD/mandibular_morphology/data/type_landmarks.csv', ',',1,1);
 id = 1:n;
@@ -21,7 +22,7 @@ for i=1:n
     end
 end
 %% Write lines in file
-dlmwrite('/home/ajaque/Documents/PhD/mandibular_morphology/data/Perfil_Lines.csv', ML, 'delimiter', ',', 'precision', '%d');
+dlmwrite('/home/ajaque/Documents/PhD/mandibular_morphology/data/Perfil_Lines_type.csv', ML, 'delimiter', ',', 'precision', '%d');
 
 %% Metrics - Angles
 % 4 triangles per example (combine 3 of 6), 12 angles
@@ -37,4 +38,4 @@ for i=1:n
 end
 
 %% Write lines in file
-dlmwrite('/home/ajaque/Documents/PhD/mandibular_morphology/data/Perfil_Angles.csv', MA, 'delimiter', ',', 'precision', '%d');
+dlmwrite('/home/ajaque/Documents/PhD/mandibular_morphology/data/Perfil_Angles_type.csv', MA, 'delimiter', ',', 'precision', '%d');
