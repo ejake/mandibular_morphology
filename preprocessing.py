@@ -24,8 +24,6 @@ class PreprocessingData:
 
     #before the run this method mandibular measures are marked with a value greater than 1 and non mandibular measures with 0
     def mask_type_measures(self, mandibular_mask = np.nan, other_mask = 1):
-
-
         # -1 if the measure includes a mandibular landmark, 0 otherwise
         self.perfil_lines_mask_mandibular_measures = self.perfil_lines_mandibular_measures[1:]
         self.perfil_angles_mask_mandibular_measures = self.perfil_angles_mandibular_measures[1:]
@@ -52,8 +50,8 @@ class PreprocessingData:
         self.X_incomplete = np.concatenate((self.X_train, self.X_test_masked))
 
 
-
     def run_all(self):
         self.load_perfil_csv()
         self.split_data()
+        self.load_type_measures()
         self.mask_type_measures()
