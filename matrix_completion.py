@@ -8,10 +8,17 @@ class MatrixCompletion:
 
     def fi_complete(self, X, method='mf', **params):
         if method == 'mf':
-            self.X_filled = MatrixFactorization(params['rank']=100).complete(X)
+            #rank = params['rank']=100
+            self.X_filled = MatrixFactorization(params['rank']).complete(X)
         if method == 'knn':
             # Use 3 nearest rows which have a feature to fill in each row's missing features
-            self.X_filled = KNN(params['k']=3).complete(X)
+            #k = params['k'] = 3
+            self.X_filled = KNN(params['k']).complete(X)
+        if method == 'soft':
+            # Instead of solving the nuclear norm objective directly, instead
+            # induce sparsity using singular value thresholding
+            self.X_filled = SoftImpute().complete(X)
+        if method == ''
 
     def error(self, X_gt, type='mse'):
         if hasattr(self, 'X_filled'):
