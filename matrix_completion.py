@@ -18,7 +18,6 @@ class MatrixCompletion:
             # Instead of solving the nuclear norm objective directly, instead
             # induce sparsity using singular value thresholding
             self.X_filled = SoftImpute().complete(X)
-        if method == ''
 
     def error(self, X_gt, type='mse'):
         if hasattr(self, 'X_filled'):

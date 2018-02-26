@@ -55,3 +55,7 @@ class PreprocessingData:
         self.split_data()
         self.load_type_measures()
         self.mask_type_measures()
+
+    def load_data_perfil(self):
+        self.load_perfil_csv()
+        self.load_type_measures()
