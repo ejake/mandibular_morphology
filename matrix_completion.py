@@ -20,7 +20,10 @@ class MatrixCompletion:
             self.X_filled = SoftImpute().complete(X)
 
     def error(self, X_gt, type='mse'):
+        err = np.Inf
         if hasattr(self, 'X_filled'):
             if type == 'mse':
                 nnm_mse = np.linalg.norm(X_gt - self.X_filled) / np.linalg.norm(X_gt)
-                print("MF MSE: %f" % nnm_mse)
+                print("MSE: %f" % nnm_mse)
+                err = nnm_mse
+        return err
