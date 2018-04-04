@@ -6,6 +6,7 @@ class MatrixCompletion:
     def __init__(self):
         pass
 
+    #fancyimpute completion methods
     def fi_complete(self, X, method='mf', **params):
         if method == 'mf':
             #rank = params['rank']=100

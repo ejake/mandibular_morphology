@@ -9,10 +9,18 @@ class PreprocessingData:
 
     def load_perfil_csv(self):
         # load perfil data
-        perfil_lines = genfromtxt(self.data_path+'Perfil_Lines.csv', delimiter=',')
-        perfil_angles = genfromtxt(self.data_path+'Perfil_Angles.csv', delimiter=',')
-        self.perfil_class = genfromtxt(self.data_path+'Perfil_class.csv', delimiter=',', skip_header=1)
-        self.perfil_all = np.concatenate((perfil_lines[:, 1:], perfil_angles[:, 1:]), axis=1)
+        self.perfil_lines = self.check_nan(genfromtxt(self.data_path+'Perfil_Lines.csv', delimiter=','))
+        self.perfil_angles = self.check_nan(genfromtxt(self.data_path+'Perfil_Angles.csv', delimiter=','))
+        self.perfil_class = self.check_nan(genfromtxt(self.data_path+'Perfil_class.csv', delimiter=',', skip_header=1))
+        self.perfil_all = np.concatenate((self.perfil_lines[:, 1:], self.perfil_angles[:, 1:]), axis=1)
+
+    def check_nan(self, x):
+        if np.count_nonzero(np.isnan(x)) > 0:
+            print 'Count of NaNs replaced:', np.count_nonzero(np.isnan(x))
+            print np.argwhere(np.isnan(x))
+            #Replace NaNs
+            x = np.nan_to_num(x)
+        return x
 
     def split_data(self, test=.3):
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.perfil_all, self.perfil_class,
