@@ -25,6 +25,11 @@ class PreprocessingData:
     def split_data(self, test=.3):
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.perfil_all, self.perfil_class,
                                                                                 test_size=test, random_state=42)
+        self.X_train_lines = self.X_train[:, :self.perfil_lines[:, 1:].shape[1]]
+        self.X_test_lines = self.X_test[:, :self.perfil_lines[:, 1:].shape[1]]
+        self.X_train_angles = self.X_train[:, self.perfil_lines[:, 1:].shape[1]:]
+        self.X_test_angles = self.X_test[:, self.perfil_lines[:, 1:].shape[1]:]
+
 
     def load_type_measures(self):
         self.perfil_lines_mandibular_measures = genfromtxt(self.data_path+'Perfil_Lines_type.csv', delimiter=',')

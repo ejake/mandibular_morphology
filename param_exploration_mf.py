@@ -9,7 +9,7 @@ import matrix_completion
 
 def explore_param_rank_mf(write_csv = '', list_parameters = range(10, 1000, 10)):
     data = preprocessing.PreprocessingData()
-    data.data_path = '../../data/'
+    data.data_path = '../data/'
 
     data.run_all()
 
@@ -27,7 +27,7 @@ def explore_param_rank_mf(write_csv = '', list_parameters = range(10, 1000, 10))
     return mse_list
 
 
-#rank_exp_lst = explore_param_rank_mf()
+        #rank_exp_lst = explore_param_rank_mf()
 
 ## Results
 
