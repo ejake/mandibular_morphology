@@ -30,24 +30,21 @@ class PreprocessingData:
         self.perfil_lines_mandibular_measures = genfromtxt(self.data_path+'Perfil_Lines_type.csv', delimiter=',')
         self.perfil_angles_mandibular_measures = genfromtxt(self.data_path+'Perfil_Angles_type.csv', delimiter=',')
 
-    #before the run this method mandibular measures are marked with a value greater than 1 and non mandibular measures with 0
+    #before the run this method mandibular measures are marked with a NaN value and non mandibular measures with a non-NaN
     def mask_type_measures(self, mandibular_mask = np.nan, other_mask = 1):
-        # -1 if the measure includes a mandibular landmark, 0 otherwise
         self.perfil_lines_mask_mandibular_measures = self.perfil_lines_mandibular_measures[1:]
         self.perfil_angles_mask_mandibular_measures = self.perfil_angles_mandibular_measures[1:]
 
         if mandibular_mask != 0:
             if np.isnan(mandibular_mask):
                 # NaN if the measure includes a mandibular landmark, 1 otherwise
-                self.perfil_lines_mask_mandibular_measures[self.perfil_lines_mask_mandibular_measures > 0] = np.nan
-                self.perfil_angles_mask_mandibular_measures[self.perfil_angles_mask_mandibular_measures > 0] = np.nan
-                self.perfil_lines_mask_mandibular_measures[self.perfil_lines_mask_mandibular_measures == 0] = 1
-                self.perfil_angles_mask_mandibular_measures[self.perfil_angles_mask_mandibular_measures == 0] = 1
+                self.perfil_lines_mask_mandibular_measures[~np.isnan(self.perfil_lines_mask_mandibular_measures)] = 1
+                self.perfil_angles_mask_mandibular_measures[~np.isnan(self.perfil_angles_mask_mandibular_measures)] = 1
             else:
-                self.perfil_lines_mask_mandibular_measures[self.perfil_lines_mask_mandibular_measures > 0] = mandibular_mask
-                self.perfil_angles_mask_mandibular_measures[self.perfil_angles_mask_mandibular_measures > 0] = mandibular_mask
-                self.perfil_lines_mask_mandibular_measures[self.perfil_lines_mask_mandibular_measures == 0] = other_mask
-                self.perfil_angles_mask_mandibular_measures[self.perfil_angles_mask_mandibular_measures == 0] = other_mask
+                self.perfil_lines_mask_mandibular_measures[np.isnan(self.perfil_lines_mask_mandibular_measures)] = mandibular_mask
+                self.perfil_angles_mask_mandibular_measures[np.isnan(self.perfil_angles_mask_mandibular_measures)] = mandibular_mask
+                self.perfil_lines_mask_mandibular_measures[~np.isnan(self.perfil_lines_mask_mandibular_measures)] = other_mask
+                self.perfil_angles_mask_mandibular_measures[~np.isnan(self.perfil_angles_mask_mandibular_measures)] = other_mask
 
         self.perfil_all_mask_mandibular_measures = np.concatenate((self.perfil_lines_mask_mandibular_measures,
                                                                    self.perfil_angles_mask_mandibular_measures))
